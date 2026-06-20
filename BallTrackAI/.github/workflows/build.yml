@@ -1,0 +1,51 @@
+name: Build SportTrack AI APK
+
+# Runs automatically every time you push code to the repo, and can also be
+# triggered manually from the Actions tab on GitHub. The actual build happens
+# entirely on GitHub's own servers — nothing runs on your laptop.
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17 (required by the Android Gradle plugin used here)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up the Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Generate Gradle wrapper if missing
+        # This project's gradle/wrapper/gradle-wrapper.jar isn't included (it's
+        # a binary file that couldn't be generated in the environment this
+        # project was built in). This step creates it fresh on GitHub's
+        # servers if it's not already in your repo — safe to leave in even
+        # after you add a real wrapper jar later, since it just does nothing
+        # if the file already exists.
+        run: |
+          if [ ! -f "gradle/wrapper/gradle-wrapper.jar" ]; then
+            echo "No gradle-wrapper.jar found — generating one"
+            gradle wrapper --gradle-version 8.7
+          fi
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Build debug APK
+        run: ./gradlew assembleDebug
+
+      - name: Upload APK as a downloadable build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SportTrackAI-debug-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
