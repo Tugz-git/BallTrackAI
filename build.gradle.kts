@@ -1,43 +1,23 @@
-name: Build SportTrack AI APK
+// Top-level build.gradle.kts — provides repositories and a clean task
+// Restores a valid Kotlin DSL file (previously the CI workflow YAML was accidentally placed here).
 
-on:
-  push:
-    branches: [ main ]
-  workflow_dispatch: {}
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+subprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
 
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@v4
+// Provide a clean task to match common Android project structure
+import org.gradle.api.tasks.Delete
 
-      - name: Set up Java 17
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Set up the Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
-        with:
-          gradle-version: '8.7'
-
-      - name: Generate Gradle wrapper
-        run: gradle wrapper --gradle-version 8.7
-
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-
-      - name: Build debug APK
-        run: ./gradlew assembleDebug --stacktrace
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: SportTrackAI-debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+tasks.register<Delete>("clean") {
+    delete(rootProject.buildDir)
+}
