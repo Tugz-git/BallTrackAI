@@ -35,6 +35,14 @@ android {
     composeOptions { kotlinCompilerExtensionVersion = "1.5.14" }
 
     packaging { resources { excludes += "/META-INF/{AL2.0,LGPL2.1}" } }
+
+    configurations.all {
+        resolutionStrategy {
+            force("androidx.datastore:datastore-preferences-core:1.1.1")
+            force("androidx.datastore:datastore-core:1.1.1")
+            force("androidx.datastore:datastore-core-okio:1.1.1")
+        }
+    }
 }
 
 dependencies {
