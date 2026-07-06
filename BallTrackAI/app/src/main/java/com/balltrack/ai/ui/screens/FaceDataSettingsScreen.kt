@@ -13,6 +13,7 @@ import com.balltrack.ai.vision.FaceRecognitionManager
 import java.text.SimpleDateFormat
 import java.util.Locale
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FaceDataSettingsScreen(faceManager: FaceRecognitionManager, onBack: () -> Unit) {
     val players by faceManager.registeredPlayers.collectAsState()
