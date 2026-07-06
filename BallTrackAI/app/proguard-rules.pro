@@ -1,0 +1,6 @@
+-keep class com.google.mediapipe.** { *; }
+-keep class com.balltrack.ai.game.GameRules { *; }
+-keepattributes Signature
+-keepattributes *Annotation*
+-dontwarn okhttp3.**
+-dontwarn retrofit2.**
