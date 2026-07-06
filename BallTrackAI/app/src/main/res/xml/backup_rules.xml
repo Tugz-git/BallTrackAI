@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Excludes local_face_data from Android's automatic cloud backup (Android <12).
+    Without this, a phone backup/restore could copy stored face embeddings to
+    the user's Google account backup storage — which would violate the "never
+    leaves this device" guarantee. This file closes that gap explicitly.
+-->
+<full-backup-content>
+    <exclude domain="file" path="local_face_data/" />
+    <exclude domain="file" path="violation_clips/" />
+    <exclude domain="file" path="match_recordings/" />
+</full-backup-content>

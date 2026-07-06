@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SportTrack AI</string>
+    <string name="basketball">Basketball</string>
+    <string name="volleyball">Volleyball</string>
+    <string name="football">Football</string>
+    <string name="camera_permission_required">Camera permission is required to track your session.</string>
+    <string name="court_detecting">Detecting court…</string>
+    <string name="court_detected">Court detected</string>
+    <string name="court_not_found">Court not detected — move back so the full hoop is visible</string>
+    <string name="session_recording">Recording</string>
+    <string name="tip_flat_shot">Your release angle looks flat — try to get more arc on the ball.</string>
+    <string name="tip_good_arc">Nice arc on that shot!</string>
+    <string name="tip_streak">You\'re on a streak — keep it up!</string>
+</resources>
